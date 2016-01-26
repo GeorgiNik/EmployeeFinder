@@ -9,11 +9,14 @@ using System.Web.SessionState;
 
 namespace EmployeeFinder.WebForms
 {
+    using App_Start;
+
     public class Global : HttpApplication
     {
         void Application_Start(object sender, EventArgs e)
         {
             // Code that runs on application startup
+            DatabaseConfig.Initialize();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
         }
