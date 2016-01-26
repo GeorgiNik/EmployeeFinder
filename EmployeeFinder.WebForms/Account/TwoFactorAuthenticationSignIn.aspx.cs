@@ -7,12 +7,10 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
-using EmployeeFinder.WebForms.Models;
+using EmployeeFinder.Models;
 
 namespace EmployeeFinder.WebForms.Account
 {
-    using EmployeeFinder.Models;
-
     public partial class TwoFactorAuthenticationSignIn : System.Web.UI.Page
     {
         private ApplicationSignInManager signinManager;

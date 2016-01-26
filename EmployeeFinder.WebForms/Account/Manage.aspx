@@ -16,65 +16,50 @@
             <div class="form-horizontal">
                 <h4>Change your account settings</h4>
                 <hr />
-                <dl class="dl-horizontal">
-                    <dt>Password:</dt>
-                    <dd>
+                <div class="col-md-3">
+                    <asp:Image runat="server" ID="Avatar" CssClass="thumbnail col-md-12" />
+                    <asp:HyperLink NavigateUrl="/Account/ChangeAvatar" Text="[Change Avatar]" ID="ChangeAvatar" runat="server" />
+                </div>
+
+                <div class="form-group col-md-9">
+                    <asp:Label runat="server" AssociatedControlID="FirstName" CssClass="col-md-2 control-label">First Name</asp:Label>
+                    <div class="col-md-9">
+                        <asp:TextBox runat="server" ID="FirstName" CssClass="form-control" placeholder='First Name' />
+                        <asp:RegularExpressionValidator Display="Dynamic" runat="server" ControlToValidate="FirstName"
+                            ValidationExpression=".{3}.*"
+                            CssClass="text-danger" ErrorMessage="Minimum first name length is 3." />
+                        <asp:RequiredFieldValidator Display="Dynamic" runat="server" ControlToValidate="FirstName"
+                            CssClass="text-danger" ErrorMessage="The first name field is required." />
+                    </div>
+                </div>
+                <div class="form-group col-md-9">
+                    <asp:Label runat="server" AssociatedControlID="LastName" CssClass="col-md-2 control-label">Last Name</asp:Label>
+
+                    <div class="col-md-9">
+                        <asp:TextBox runat="server" ID="LastName" CssClass="form-control" placeholder='Last Name' />
+                        <asp:RegularExpressionValidator Display="Dynamic" runat="server" ControlToValidate="LastName"
+                            ValidationExpression=".{3}.*"
+                            CssClass="text-danger" ErrorMessage="Minimum first name length is 3." />
+                        <asp:RequiredFieldValidator Display="Dynamic" runat="server" ControlToValidate="LastName"
+                            CssClass="text-danger" ErrorMessage="The first name field is required." />
+                    </div>
+                    
+                </div>
+               <dl class=" col-md-9 ">
+                    <dt class="col-md-3" style="text-align: center">Password:</dt>
+                    <dd class="col-md-4">
                         <asp:HyperLink NavigateUrl="/Account/ManagePassword" Text="[Change]" Visible="false" ID="ChangePassword" runat="server" />
                         <asp:HyperLink NavigateUrl="/Account/ManagePassword" Text="[Create]" Visible="false" ID="CreatePassword" runat="server" />
                     </dd>
-                    <dt>External Logins:</dt>
-                    <dd><%: LoginsCount %>
-                        <asp:HyperLink NavigateUrl="/Account/ManageLogins" Text="[Manage]" runat="server" />
-
-                    </dd>
-                    <%--
-                        Phone Numbers can used as a second factor of verification in a two-factor authentication system.
-                        See <a href="http://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
-                        for details on setting up this ASP.NET application to support two-factor authentication using SMS.
-                        Uncomment the following blocks after you have set up two-factor authentication
-                    --%>
-                    <%--
-                    <dt>Phone Number:</dt>
-                    <% if (HasPhoneNumber)
-                       { %>
-                    <dd>
-                        <asp:HyperLink NavigateUrl="/Account/AddPhoneNumber" runat="server" Text="[Add]" />
-                    </dd>
-                    <% }
-                       else
-                       { %>
-                    <dd>
-                        <asp:Label Text="" ID="PhoneNumber" runat="server" />
-                        <asp:HyperLink NavigateUrl="/Account/AddPhoneNumber" runat="server" Text="[Change]" /> &nbsp;|&nbsp;
-                        <asp:LinkButton Text="[Remove]" OnClick="RemovePhone_Click" runat="server" />
-                    </dd>
-                    <% } %>
-                    --%>
-
-                    <dt>Two-Factor Authentication:</dt>
-                    <dd>
-                        <p>
-                            There are no two-factor authentication providers configured. See <a href="http://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
-                            for details on setting up this ASP.NET application to support two-factor authentication.
-                        </p>
-                        <% if (TwoFactorEnabled)
-                          { %> 
-                        <%--
-                        Enabled
-                        <asp:LinkButton Text="[Disable]" runat="server" CommandArgument="false" OnClick="TwoFactorDisable_Click" />
-                        --%>
-                        <% }
-                          else
-                          { %> 
-                        <%--
-                        Disabled
-                        <asp:LinkButton Text="[Enable]" CommandArgument="true" OnClick="TwoFactorEnable_Click" runat="server" />
-                        --%>
-                        <% } %>
-                    </dd>
                 </dl>
+
+                <div class="form-group col-md-9">
+                    <div class="col-md-offset-6">
+                        <asp:Button runat="server" OnClick="UpdateAccount_Click" Text="Update" CssClass="btn btn-primary" />
+                    </div>
+                </div>
             </div>
-        </div>
+    </div>
     </div>
 
 </asp:Content>

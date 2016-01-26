@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="ImageFromUrlSave.ascx.cs" Inherits="BarterSystem.WebForms.Controls.ImageFromUrl.ImageFromUrlSave" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="ImageFromUrlSave.ascx.cs" Inherits="EmployeeFinder.WebForms.Controls.ImageFromUrl.ImageFromUrlSave" %>
 
 
 <asp:TextBox runat="server" ID="ImageUploadUrl" CssClass="form-control"></asp:TextBox>

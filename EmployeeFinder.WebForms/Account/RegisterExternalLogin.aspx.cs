@@ -4,12 +4,10 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Owin;
-using EmployeeFinder.WebForms.Models;
+using EmployeeFinder.Models;
 
 namespace EmployeeFinder.WebForms.Account
 {
-    using EmployeeFinder.Models;
-
     public partial class RegisterExternalLogin : System.Web.UI.Page
     {
         protected string ProviderName
@@ -41,7 +39,6 @@ namespace EmployeeFinder.WebForms.Account
             if (!IsPostBack)
             {
                 var manager = Context.GetOwinContext().GetUserManager<ApplicationUserManager>();
-                var signInManager = Context.GetOwinContext().Get<ApplicationSignInManager>();
                 var loginInfo = Context.GetOwinContext().Authentication.GetExternalLoginInfo();
                 if (loginInfo == null)
                 {
@@ -51,7 +48,7 @@ namespace EmployeeFinder.WebForms.Account
                 var user = manager.Find(loginInfo.Login);
                 if (user != null)
                 {
-                    signInManager.SignIn(user, isPersistent: false, rememberBrowser: false);
+                    IdentityHelper.SignIn(manager, user, isPersistent: false);
                     IdentityHelper.RedirectToReturnUrl(Request.QueryString["ReturnUrl"], Response);
                 }
                 else if (User.Identity.IsAuthenticated)
@@ -94,7 +91,6 @@ namespace EmployeeFinder.WebForms.Account
                 return;
             }
             var manager = Context.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            var signInManager = Context.GetOwinContext().GetUserManager<ApplicationSignInManager>();
             var user = new User() { UserName = email.Text, Email = email.Text };
             IdentityResult result = manager.Create(user);
             if (result.Succeeded)
@@ -108,7 +104,7 @@ namespace EmployeeFinder.WebForms.Account
                 result = manager.AddLogin(user.Id, loginInfo.Login);
                 if (result.Succeeded)
                 {
-                    signInManager.SignIn(user, isPersistent: false, rememberBrowser: false);
+                    IdentityHelper.SignIn(manager, user, isPersistent: false);
 
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                     // var code = manager.GenerateEmailConfirmationToken(user.Id);

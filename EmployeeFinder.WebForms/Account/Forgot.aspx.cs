@@ -4,12 +4,10 @@ using System.Web.UI;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Owin;
-using EmployeeFinder.WebForms.Models;
+using EmployeeFinder.Models;
 
 namespace EmployeeFinder.WebForms.Account
 {
-    using EmployeeFinder.Models;
-
     public partial class ForgotPassword : Page
     {
         protected void Page_Load(object sender, EventArgs e)

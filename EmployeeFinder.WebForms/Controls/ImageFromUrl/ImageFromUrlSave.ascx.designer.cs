@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace BarterSystem.WebForms.Controls.ImageFromUrl {
+namespace EmployeeFinder.WebForms.Controls.ImageFromUrl {
     
     
     public partial class ImageFromUrlSave {

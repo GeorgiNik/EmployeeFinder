@@ -1,5 +1,5 @@
 ﻿<%@ Control Language="C#"  AutoEventWireup="true"
     CodeBehind="Notifier.ascx.cs"
-    Inherits="BarterSystem.WebForms.Controls.Notifier.Notifier"%>
+    Inherits="EmployeeFinder.WebForms.Controls.Notifier.Notifier"%>
 
 

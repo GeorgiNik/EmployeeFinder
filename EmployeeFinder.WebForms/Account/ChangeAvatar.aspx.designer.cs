@@ -10,16 +10,7 @@
 namespace EmployeeFinder.WebForms.Account {
     
     
-    public partial class Manage {
-        
-        /// <summary>
-        /// successMessage control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder successMessage;
+    public partial class ChangeAvatar {
         
         /// <summary>
         /// Avatar control.
@@ -31,48 +22,48 @@ namespace EmployeeFinder.WebForms.Account {
         protected global::System.Web.UI.WebControls.Image Avatar;
         
         /// <summary>
-        /// ChangeAvatar control.
+        /// FileUploadAvatar control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink ChangeAvatar;
+        protected global::System.Web.UI.WebControls.FileUpload FileUploadAvatar;
         
         /// <summary>
-        /// FirstName control.
+        /// RevImg control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox FirstName;
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator RevImg;
         
         /// <summary>
-        /// LastName control.
+        /// ButtonUpload control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox LastName;
+        protected global::System.Web.UI.WebControls.Button ButtonUpload;
         
         /// <summary>
-        /// ChangePassword control.
+        /// ControlImageFromUrl control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink ChangePassword;
+        protected global::EmployeeFinder.WebForms.Controls.ImageFromUrl.ImageFromUrlSave ControlImageFromUrl;
         
         /// <summary>
-        /// CreatePassword control.
+        /// ButtonUploadControl control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink CreatePassword;
+        protected global::System.Web.UI.WebControls.Button ButtonUploadControl;
     }
 }

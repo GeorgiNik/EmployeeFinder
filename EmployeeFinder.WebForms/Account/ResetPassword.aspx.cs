@@ -5,7 +5,6 @@ using System.Web.UI;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Owin;
-using EmployeeFinder.WebForms.Models;
 
 namespace EmployeeFinder.WebForms.Account
 {

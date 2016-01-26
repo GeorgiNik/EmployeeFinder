@@ -1,4 +1,4 @@
-﻿namespace BarterSystem.WebForms.Controls.ImageFromUrl
+﻿namespace EmployeeFinder.WebForms.Controls.ImageFromUrl
 {
     using System;
     using System.IO;

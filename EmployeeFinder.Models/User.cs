@@ -31,7 +31,7 @@ namespace EmployeeFinder.Models
         [MaxLength(30)]
         public string LastName { get; set; }
 
-        [Required]
+        
         public string AvatarUrl { get; set; }
 
         [Required]

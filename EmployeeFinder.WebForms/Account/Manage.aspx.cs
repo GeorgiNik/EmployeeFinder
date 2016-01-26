@@ -1,17 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Web;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
-using Microsoft.AspNet.Identity.Owin;
-using Microsoft.Owin.Security;
-using Owin;
-using EmployeeFinder.WebForms.Models;
-
-namespace EmployeeFinder.WebForms.Account
+﻿namespace EmployeeFinder.WebForms.Account
 {
+    using System;
+    using System.Linq;
+    using System.Web;
+    using System.Web.UI.WebControls;
+
+    using EmployeeFinder.Common;
+    using EmployeeFinder.Data;
+    using EmployeeFinder.WebForms.Controls.Notifier;
+
+    using Microsoft.AspNet.Identity;
+    using Microsoft.AspNet.Identity.Owin;
+
     public partial class Manage : System.Web.UI.Page
     {
         protected string SuccessMessage
@@ -37,28 +37,27 @@ namespace EmployeeFinder.WebForms.Account
         {
             var manager = Context.GetOwinContext().GetUserManager<ApplicationUserManager>();
 
-            HasPhoneNumber = String.IsNullOrEmpty(manager.GetPhoneNumber(User.Identity.GetUserId()));
-
             // Enable this after setting up two-factor authentientication
-            //PhoneNumber.Text = manager.GetPhoneNumber(User.Identity.GetUserId()) ?? String.Empty;
+            // PhoneNumber.Text = manager.GetPhoneNumber(User.Identity.GetUserId()) ?? String.Empty;
+            this.TwoFactorEnabled = manager.GetTwoFactorEnabled(User.Identity.GetUserId());
 
-            TwoFactorEnabled = manager.GetTwoFactorEnabled(User.Identity.GetUserId());
-
-            LoginsCount = manager.GetLogins(User.Identity.GetUserId()).Count;
+            this.LoginsCount = manager.GetLogins(User.Identity.GetUserId()).Count;
 
             var authenticationManager = HttpContext.Current.GetOwinContext().Authentication;
 
-            if (!IsPostBack)
+            if (!this.IsPostBack)
             {
+                this.PopulateUserData();
+
                 // Determine the sections to render
-                if (HasPassword(manager))
+                if (this.HasPassword(manager))
                 {
-                    ChangePassword.Visible = true;
+                    this.ChangePassword.Visible = true;
                 }
                 else
                 {
-                    CreatePassword.Visible = true;
-                    ChangePassword.Visible = false;
+                    this.CreatePassword.Visible = true;
+                    this.ChangePassword.Visible = false;
                 }
 
                 // Render success message
@@ -66,20 +65,38 @@ namespace EmployeeFinder.WebForms.Account
                 if (message != null)
                 {
                     // Strip the query string from action
-                    Form.Action = ResolveUrl("~/Account/Manage");
+                    Form.Action = this.ResolveUrl("~/Account/Manage");
 
-                    SuccessMessage =
+                    this.SuccessMessage =
                         message == "ChangePwdSuccess" ? "Your password has been changed."
                         : message == "SetPwdSuccess" ? "Your password has been set."
                         : message == "RemoveLoginSuccess" ? "The account was removed."
                         : message == "AddPhoneNumberSuccess" ? "Phone number has been added"
                         : message == "RemovePhoneNumberSuccess" ? "Phone number was removed"
-                        : String.Empty;
-                    successMessage.Visible = !String.IsNullOrEmpty(SuccessMessage);
+                        : string.Empty;
+                    Notifier.Success(this.SuccessMessage);
                 }
             }
         }
 
+        private void PopulateUserData()
+        {
+            var uow = new EmployeeFinderData();
+            var userId = this.User.Identity.GetUserId();
+            var user =
+                uow.Users.All()
+                    .Select(u => new { u.Id, u.FirstName, u.LastName, u.AvatarUrl, u.Rating })
+                    .First(u => u.Id == userId);
+
+            this.Avatar.ImageUrl = GlobalConstants.ImagesPath + user.AvatarUrl;
+           
+            this.Page.DataBind();
+
+         
+
+            this.FirstName.Text = user.FirstName;
+            this.LastName.Text = user.LastName;
+        }
 
         private void AddErrors(IdentityResult result)
         {
@@ -89,40 +106,38 @@ namespace EmployeeFinder.WebForms.Account
             }
         }
 
-        // Remove phonenumber from user
-        protected void RemovePhone_Click(object sender, EventArgs e)
+        protected void UpdateAccount_Click(object sender, EventArgs e)
         {
-            var manager = Context.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            var signInManager = Context.GetOwinContext().Get<ApplicationSignInManager>();
-            var result = manager.SetPhoneNumber(User.Identity.GetUserId(), null);
-            if (!result.Succeeded)
+            try
             {
-                return;
+                var data = new EmployeeFinderData();
+                var userId = this.User.Identity.GetUserId();
+                var user = data.Users.Find(userId);
+
+                if (this.FirstName.Text != user.FirstName)
+                {
+                    user.FirstName = this.FirstName.Text;
+                }
+
+                if (this.LastName.Text != user.LastName)
+                {
+                    user.LastName = this.LastName.Text;
+                }
+
+                
+
+                data.SaveChanges();
+                Notifier.Success("Account successfully updated");
+                Response.Redirect("~/Account/Manage.aspx", true);
             }
-            var user = manager.FindById(User.Identity.GetUserId());
-            if (user != null)
+            catch (Exception err)
             {
-                signInManager.SignIn(user, isPersistent: false, rememberBrowser: false);
-                Response.Redirect("/Account/Manage?m=RemovePhoneNumberSuccess");
+                // TODO: this is wrong
+                if (err.Message != "Thread was being aborted.")
+                {
+                    Notifier.Error(err.Message);
+                }
             }
-        }
-
-        // DisableTwoFactorAuthentication
-        protected void TwoFactorDisable_Click(object sender, EventArgs e)
-        {
-            var manager = Context.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            manager.SetTwoFactorEnabled(User.Identity.GetUserId(), false);
-
-            Response.Redirect("/Account/Manage");
-        }
-
-        //EnableTwoFactorAuthentication 
-        protected void TwoFactorEnable_Click(object sender, EventArgs e)
-        {
-            var manager = Context.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            manager.SetTwoFactorEnabled(User.Identity.GetUserId(), true);
-
-            Response.Redirect("/Account/Manage");
         }
     }
 }

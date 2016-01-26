@@ -1,6 +1,6 @@
-﻿namespace BarterSystem.WebForms.Controls.Notifier
+﻿namespace EmployeeFinder.WebForms.Controls.Notifier
 {
-    using BarterSystem.WebForms.Controls.Notifier.Enums;
+    using EmployeeFinder.WebForms.Controls.Notifier.Enums;
 
     public class Notification
     {

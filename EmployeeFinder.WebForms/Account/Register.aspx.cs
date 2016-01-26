@@ -10,7 +10,7 @@ namespace EmployeeFinder.WebForms.Account
 {
     using System.Web.Security;
 
-    using BarterSystem.WebForms.Controls.Notifier;
+    using EmployeeFinder.WebForms.Controls.Notifier;
 
     using EmployeeFinder.Common;
     using EmployeeFinder.Models;

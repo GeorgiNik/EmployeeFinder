@@ -1,4 +1,4 @@
-﻿namespace BarterSystem.WebForms.Controls.Notifier
+﻿namespace EmployeeFinder.WebForms.Controls.Notifier
 {
     using System;
     using System.Collections.Generic;

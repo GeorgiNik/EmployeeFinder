@@ -1,4 +1,4 @@
-﻿namespace BarterSystem.WebForms.Controls.Notifier.Enums
+﻿namespace EmployeeFinder.WebForms.Controls.Notifier.Enums
 {
     public enum NotificationType
     {

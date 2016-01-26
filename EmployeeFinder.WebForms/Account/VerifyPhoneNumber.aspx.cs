@@ -28,7 +28,6 @@ namespace EmployeeFinder.WebForms.Account
             }
 
             var manager = Context.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            var signInManager = Context.GetOwinContext().Get<ApplicationSignInManager>();
 
             var result = manager.ChangePhoneNumber(User.Identity.GetUserId(), PhoneNumber.Value, Code.Text);
 
@@ -38,7 +37,7 @@ namespace EmployeeFinder.WebForms.Account
 
                 if (user != null)
                 {
-                    signInManager.SignIn(user, isPersistent: false, rememberBrowser: false);
+                    IdentityHelper.SignIn(manager, user, false);
                     Response.Redirect("/Account/Manage?m=AddPhoneNumberSuccess");
                 }
             }
