@@ -174,6 +174,11 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Site.css" />
+    <Content Include="Controls\ImageFromUrl\ImageFromUrlSave.ascx" />
+    <Content Include="Controls\Notifier\css\notifier.css" />
+    <Content Include="Controls\Notifier\js\jquery-2.1.1.min.js" />
+    <Content Include="Controls\Notifier\js\notifier.js" />
+    <Content Include="Controls\Notifier\Notifier.ascx" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
@@ -341,6 +346,7 @@
     <Compile Include="About.aspx.designer.cs">
       <DependentUpon>About.aspx</DependentUpon>
     </Compile>
+    <Compile Include="App_Start\DatabaseConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
@@ -350,6 +356,19 @@
     </Compile>
     <Compile Include="Contact.aspx.designer.cs">
       <DependentUpon>Contact.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ImageFromUrl\ImageFromUrlSave.ascx.cs">
+      <DependentUpon>ImageFromUrlSave.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\ImageFromUrl\ImageFromUrlSave.ascx.designer.cs">
+      <DependentUpon>ImageFromUrlSave.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Notifier\Enums\NotificationType.cs" />
+    <Compile Include="Controls\Notifier\Notification.cs" />
+    <Compile Include="Controls\Notifier\Notifier.ascx.cs">
+      <DependentUpon>Notifier.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
@@ -388,7 +407,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Administration\" />
-    <Folder Include="Contorls\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\EmployeeFinder.Common\EmployeeFinder.Common.csproj">
