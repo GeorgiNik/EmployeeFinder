@@ -8,6 +8,8 @@ using EmployeeFinder.WebForms.Models;
 
 namespace EmployeeFinder.WebForms.Account
 {
+    using EmployeeFinder.Models;
+
     public partial class ForgotPassword : Page
     {
         protected void Page_Load(object sender, EventArgs e)
@@ -20,7 +22,7 @@ namespace EmployeeFinder.WebForms.Account
             {
                 // Validate the user's email address
                 var manager = Context.GetOwinContext().GetUserManager<ApplicationUserManager>();
-                ApplicationUser user = manager.FindByName(Email.Text);
+                User user = manager.FindByName(Email.Text);
                 if (user == null || !manager.IsEmailConfirmed(user.Id))
                 {
                     FailureText.Text = "The user either does not exist or is not confirmed.";

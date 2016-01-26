@@ -8,6 +8,8 @@ using EmployeeFinder.WebForms.Models;
 
 namespace EmployeeFinder.WebForms.Account
 {
+    using EmployeeFinder.Models;
+
     public partial class RegisterExternalLogin : System.Web.UI.Page
     {
         protected string ProviderName
@@ -93,7 +95,7 @@ namespace EmployeeFinder.WebForms.Account
             }
             var manager = Context.GetOwinContext().GetUserManager<ApplicationUserManager>();
             var signInManager = Context.GetOwinContext().GetUserManager<ApplicationSignInManager>();
-            var user = new ApplicationUser() { UserName = email.Text, Email = email.Text };
+            var user = new User() { UserName = email.Text, Email = email.Text };
             IdentityResult result = manager.Create(user);
             if (result.Succeeded)
             {

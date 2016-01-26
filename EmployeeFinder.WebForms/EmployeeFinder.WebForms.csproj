@@ -390,6 +390,20 @@
     <Folder Include="Administration\" />
     <Folder Include="Contorls\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\EmployeeFinder.Common\EmployeeFinder.Common.csproj">
+      <Project>{48533faa-097a-4ae8-9974-3a1ca90bfeae}</Project>
+      <Name>EmployeeFinder.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EmployeeFinder.Data\EmployeeFinder.Data.csproj">
+      <Project>{aed8c20f-80f2-40a7-ad07-9c3efec1184d}</Project>
+      <Name>EmployeeFinder.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EmployeeFinder.Models\EmployeeFinder.Models.csproj">
+      <Project>{646eb4f4-6fac-48bc-bf05-2bcae34c095a}</Project>
+      <Name>EmployeeFinder.Models</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

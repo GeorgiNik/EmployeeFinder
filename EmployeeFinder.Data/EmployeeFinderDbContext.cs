@@ -3,13 +3,19 @@
     using System.Data.Entity;
 
     using EmployeeFinder.Data.Migrations;
+    using EmployeeFinder.Models;
 
-    public class EmployeeFinderDbContext: DbContext
+    using Microsoft.AspNet.Identity.EntityFramework;
+
+    public class EmployeeFinderDbContext: IdentityDbContext<User>
     {
         public EmployeeFinderDbContext() : base("DefaultConnectionString")
         {
             Database.SetInitializer(new MigrateDatabaseToLatestVersion<EmployeeFinderDbContext, Configuration>());
         }
-
+        public static EmployeeFinderDbContext Create()
+        {
+            return new EmployeeFinderDbContext();
+        }
     }
 }

@@ -11,6 +11,8 @@ using EmployeeFinder.WebForms.Models;
 
 namespace EmployeeFinder.WebForms.Account
 {
+    using EmployeeFinder.Models;
+
     public partial class TwoFactorAuthenticationSignIn : System.Web.UI.Page
     {
         private ApplicationSignInManager signinManager;
@@ -24,7 +26,7 @@ namespace EmployeeFinder.WebForms.Account
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            var userId = signinManager.GetVerifiedUserId<ApplicationUser, string>();
+            var userId = signinManager.GetVerifiedUserId<User, string>();
             if (userId == null)
             {
                 Response.Redirect("/Account/Error", true);
@@ -39,7 +41,7 @@ namespace EmployeeFinder.WebForms.Account
             bool rememberMe = false;
             bool.TryParse(Request.QueryString["RememberMe"], out rememberMe);
             
-            var result = signinManager.TwoFactorSignIn<ApplicationUser, string>(SelectedProvider.Value, Code.Text, isPersistent: rememberMe, rememberBrowser: RememberBrowser.Checked);
+            var result = signinManager.TwoFactorSignIn<User, string>(SelectedProvider.Value, Code.Text, isPersistent: rememberMe, rememberBrowser: RememberBrowser.Checked);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -63,7 +65,7 @@ namespace EmployeeFinder.WebForms.Account
                 Response.Redirect("/Account/Error");
             }
 
-            var user = manager.FindById(signinManager.GetVerifiedUserId<ApplicationUser, string>());
+            var user = manager.FindById(signinManager.GetVerifiedUserId<User, string>());
             if (user != null)
             {
                 var code = manager.GenerateTwoFactorToken(user.Id, Providers.SelectedValue);

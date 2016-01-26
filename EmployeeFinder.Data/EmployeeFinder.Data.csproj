@@ -57,13 +57,27 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EmployeeFinderData.cs" />
     <Compile Include="EmployeeFinderDbContext.cs" />
+    <Compile Include="IEmployeeFinderData.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\IRepository.cs" />
+    <Compile Include="Repositories\Repository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\EmployeeFinder.Common\EmployeeFinder.Common.csproj">
+      <Project>{48533faa-097a-4ae8-9974-3a1ca90bfeae}</Project>
+      <Name>EmployeeFinder.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EmployeeFinder.Models\EmployeeFinder.Models.csproj">
+      <Project>{646eb4f4-6fac-48bc-bf05-2bcae34c095a}</Project>
+      <Name>EmployeeFinder.Models</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
