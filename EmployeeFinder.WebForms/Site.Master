@@ -49,11 +49,15 @@
                     <a class="navbar-brand" runat="server" href="~/">EmployeeFinder</a>
                 </div>
                 <div class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav">
-                        <li><a runat="server" href="~/">Home</a></li>
-                        <li><a runat="server" href="~/Contact">Contact</a></li>
-                        <li><a runat="server" href="~/Employees/AddEmployee.aspx">Add Employee</a></li>
-                    </ul>
+                     <asp:Menu ID="NavigationMenu" runat="server"  EnableViewState="false" 
+                          IncludeStyleBlock="false" Orientation="Horizontal"
+                          CssClass="navbar-collapse collapse"
+                          StaticMenuStyle-CssClass= "nav navbar-nav"
+                          StaticSelectedStyle-CssClass="active"
+                          DynamicMenuStyle-CssClass="dropdown-menu"
+                          DataSourceId="SiteMapDataSource"
+                          StaticDisplayLevels="2">
+                      </asp:Menu>
                     <asp:LoginView runat="server" ViewStateMode="Disabled">
                         <AnonymousTemplate>
                             <ul class="nav navbar-nav navbar-right">
@@ -82,5 +86,6 @@
             </footer>
         </div>
     </form>
+    <asp:SiteMapDataSource ID="SiteMapDataSource" runat="server"/>
 </body>
 </html>
