@@ -85,15 +85,13 @@
             var userId = this.User.Identity.GetUserId();
             var user =
                 uow.Users.All()
-                    .Select(u => new { u.Id, u.FirstName, u.LastName, u.AvatarUrl, u.Rating })
+                    .Select(u => new { u.Id, u.FirstName, u.LastName, u.AvatarUrl})
                     .First(u => u.Id == userId);
 
             this.Avatar.ImageUrl = GlobalConstants.ImagesPath + user.AvatarUrl;
            
             this.Page.DataBind();
-
-         
-
+            
             this.FirstName.Text = user.FirstName;
             this.LastName.Text = user.LastName;
         }

@@ -26,7 +26,6 @@ namespace EmployeeFinder.WebForms.Account
                 Email = this.Email.Text,
                 FirstName = this.FirstName.Text,
                 LastName = this.LastName.Text,
-                Rating = 0,
                 AvatarUrl = GlobalConstants.DefaultUserAvatar
             };
             IdentityResult result = manager.Create(user, this.Password.Text);

@@ -14,11 +14,11 @@ namespace EmployeeFinder.Models
 
     public class User : IdentityUser
     {
-        
+        private ICollection<Comment> comments;
 
         public User()
         {
-           
+            this.comments = new HashSet<Comment>();
         }
 
         [Required]
@@ -34,10 +34,19 @@ namespace EmployeeFinder.Models
         
         public string AvatarUrl { get; set; }
 
-        [Required]
-        public int Rating { get; set; }
 
-       
+        public virtual ICollection<Comment> Comments
+        {
+            get
+            {
+                return this.comments;
+            }
+
+            set
+            {
+                this.comments = value;
+            }
+        }
 
         public ClaimsIdentity GenerateUserIdentity(UserManager<User> manager)
         {

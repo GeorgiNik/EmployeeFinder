@@ -27,8 +27,31 @@ namespace EmployeeFinder.Data
             this.repositories = new Dictionary<Type, object>();
         }
 
-       
+        public IRepository<Comment> Comments
+        {
+            get
+            {
+                return this.GetRepository<Comment>();
+            }
+        }
 
+  
+
+        public IRepository<Employee> Employees
+        {
+            get
+            {
+                return this.GetRepository<Employee>();
+            }
+        }
+
+        public IRepository<Company> Companies
+        {
+            get
+            {
+                return this.GetRepository<Company>();
+            }
+        }
         public IRepository<User> Users
         {
             get

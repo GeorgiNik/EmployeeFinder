@@ -7,7 +7,7 @@
 
     using Microsoft.AspNet.Identity.EntityFramework;
 
-    public class EmployeeFinderDbContext: IdentityDbContext<User>
+    public class EmployeeFinderDbContext : IdentityDbContext<User>
     {
         public EmployeeFinderDbContext() : base("DefaultConnectionString")
         {
@@ -17,5 +17,13 @@
         {
             return new EmployeeFinderDbContext();
         }
+
+        public IDbSet<Comment> Comments { get; set; }
+
+        public IDbSet<Employee> Employees { get; set; }
+
+        public IDbSet<Company> Companies { get; set; } 
+
+         
     }
 }

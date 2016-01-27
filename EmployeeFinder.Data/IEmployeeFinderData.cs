@@ -11,7 +11,9 @@ namespace EmployeeFinder.Data
 
     public interface IEmployeeFinderData
     {
-       
+        IRepository<Comment> Comments { get; }
+        IRepository<Employee> Employees { get; }
+        IRepository<Company> Companies { get; }
         IRepository<User> Users { get; }
 
         int SaveChanges();
