@@ -2,14 +2,11 @@
 <siteMap xmlns="http://schemas.microsoft.com/AspNet/SiteMap-File-1.0" >
     <siteMapNode title="Home" description="Home Page" url="~/Default.aspx">
     <siteMapNode title="Employees" description="Find, create and comment employees" roles="user,admin">
-      <siteMapNode title="Search" description="Search for a barter" url="~/Barter/Search.aspx"/>
-      <siteMapNode title="Add employee" description="Create new barter" url="~/Employees/AddEmployee.aspx"/>
-      <siteMapNode title="Comment" description="Comment finished barter" url="~/Barter/Comment.aspx"/>
+      <siteMapNode title="Search" description="Search for a barter" url="~/Employees/Search.aspx"/>
+      <siteMapNode title="Add employee" description="Create new barter" url="~/Employees/Create.aspx"/>
     </siteMapNode>
-    
     <siteMapNode title="Contact" description="About Page" url="~/Contact.aspx" />
     <siteMapNode title="Administration" description="Site administration" roles="admin">
-     
     </siteMapNode>
   </siteMapNode>
 </siteMap>
