@@ -5,10 +5,8 @@
     using System.Web.UI;
     using System.Web.UI.WebControls;
 
-    using Common;
-
-    using Data;
-
+    using EmployeeFinder.Common;
+    using EmployeeFinder.Data;
     using EmployeeFinder.Models;
 
     public partial class Details : Page
@@ -33,11 +31,11 @@
                 return;
             }
 
-            for (int i = 1; i <= 6; i++)
+            for (var i = 1; i <= 6; i++)
             {
                 this.Rating.Items.Add(new ListItem(i.ToString()));
             }
-            
+
             var id = int.Parse(idStr);
             var employee = this.data.Employees.All().FirstOrDefault(x => x.Id == id);
             this.Image1.ImageUrl = GlobalConstants.ImagesPath + employee.EmployeePhoto;

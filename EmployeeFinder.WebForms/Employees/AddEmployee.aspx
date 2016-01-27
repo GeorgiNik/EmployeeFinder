@@ -3,14 +3,14 @@
     Language="C#"
     MasterPageFile="~/Site.Master"
     AutoEventWireup="true"
-    CodeBehind="Create.aspx.cs"
+    CodeBehind="AddEmployee.aspx.cs"
     Inherits="EmployeeFinder.WebForms.Employees.AddEmployee" %>
 
 <%@ Register Src="~/Controls/ImageFromUrl/ImageFromUrlSave.ascx" TagPrefix="uc1" TagName="ImageFromUrlSave" %>
 
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
-    <h2><%: Title %></h2>
+    <h2><%: this.Title %></h2>
     <p class="text-danger">
         <asp:Literal runat="server" ID="ErrorMessage" />
     </p>

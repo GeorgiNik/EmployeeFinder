@@ -7,7 +7,7 @@
 <head runat="server">
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title><%: Page.Title %> -EmployeeFinder</title>
+    <title><%: this.Page.Title %> -EmployeeFinder</title>
 
     <asp:PlaceHolder runat="server">
         <%: Scripts.Render("~/bundles/modernizr") %>
@@ -53,7 +53,7 @@
                         <asp:Menu ID="NavigationMenu" runat="server"  EnableViewState="false" 
                           IncludeStyleBlock="false" Orientation="Horizontal"
                           CssClass="navbar-collapse collapse"
-                          StaticMenuStyle-CssClass= "nav navbar-nav navbar-left fix"
+                          StaticMenuStyle-CssClass= "nav navbar-nav"
                           StaticSelectedStyle-CssClass="active"
                           DynamicMenuStyle-CssClass="dropdown-menu"
                           DataSourceId="SiteMapDataSource"
@@ -68,7 +68,7 @@
                             </AnonymousTemplate>
                             <LoggedInTemplate>
                                 <ul class="nav navbar-nav navbar-right fix">
-                                    <li><a runat="server" href="~/Account/Manage" title="Manage your account">Hello, <%: Context.User.Identity.GetUserName()  %> !</a></li>
+                                    <li><a runat="server" href="~/Account/Manage" title="Manage your account">Hello, <%: this.Context.User.Identity.GetUserName() %> !</a></li>
                                     <li>
                                         <asp:LoginStatus runat="server" LogoutAction="Redirect" LogoutText="Log off" LogoutPageUrl="~/" OnLoggingOut="Unnamed_LoggingOut" />
                                     </li>

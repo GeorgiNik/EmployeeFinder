@@ -2,8 +2,8 @@
 {
     using System.Data.Entity;
 
-    using Data;
-    using Data.Migrations;
+    using EmployeeFinder.Data;
+    using EmployeeFinder.Data.Migrations;
 
     public static class DatabaseConfig
     {

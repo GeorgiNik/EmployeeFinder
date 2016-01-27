@@ -1,12 +1,18 @@
-﻿using Microsoft.Owin;
-using Owin;
+﻿using EmployeeFinder.WebForms;
 
-[assembly: OwinStartupAttribute(typeof(EmployeeFinder.WebForms.Startup))]
+using Microsoft.Owin;
+
+[assembly: OwinStartup(typeof(Startup))]
+
 namespace EmployeeFinder.WebForms
 {
-    public partial class Startup {
-        public void Configuration(IAppBuilder app) {
-            ConfigureAuth(app);
+    using Owin;
+
+    public partial class Startup
+    {
+        public void Configuration(IAppBuilder app)
+        {
+            this.ConfigureAuth(app);
         }
     }
 }

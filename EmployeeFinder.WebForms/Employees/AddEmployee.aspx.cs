@@ -4,6 +4,7 @@
     using System.Linq;
     using System.Web.UI;
     using System.Web.UI.WebControls;
+
     using EmployeeFinder.Common;
     using EmployeeFinder.Data;
     using EmployeeFinder.Models;
@@ -15,7 +16,7 @@
         {
             if (this.User == null || !this.User.Identity.IsAuthenticated)
             {
-                Server.Transfer("~/Account/Login.aspx", true);
+                this.Server.Transfer("~/Account/Login.aspx", true);
             }
 
             if (!this.IsPostBack)
@@ -25,7 +26,7 @@
                     this.Possition.Items.Add(new ListItem(Enum.GetName(typeof(Position), value), value.ToString()));
                 }
 
-                for (int i = 1; i <= 6; i++)
+                for (var i = 1; i <= 6; i++)
                 {
                     this.Rating.Items.Add(new ListItem(i.ToString()));
                 }
@@ -49,7 +50,6 @@
             newEmployee.Position = (Position)Enum.Parse(typeof(Position), this.Possition.SelectedValue);
             newEmployee.Rating = this.Rating.SelectedIndex + 1;
 
-
             if (this.FileUploadImage.HasFile)
             {
                 if (this.FileUploadImage.PostedFile.ContentLength > 1024000)
@@ -57,20 +57,17 @@
                     Notifier.Error("File has to be less than 1MB");
                     return;
                 }
-                else
-                {
-                    string fileName = this.FileUploadImage.PostedFile.FileName;
-                    var fileExtension = fileName.Substring(fileName.LastIndexOf('.'));
-                    var newName = Guid.NewGuid() + fileExtension;
-                    this.FileUploadImage.SaveAs(Server.MapPath(GlobalConstants.ImagesPath + newName));
+                var fileName = this.FileUploadImage.PostedFile.FileName;
+                var fileExtension = fileName.Substring(fileName.LastIndexOf('.'));
+                var newName = Guid.NewGuid() + fileExtension;
+                this.FileUploadImage.SaveAs(this.Server.MapPath(GlobalConstants.ImagesPath + newName));
 
-                    newEmployee.EmployeePhoto = newName;
-                }
+                newEmployee.EmployeePhoto = newName;
             }
             else if (this.ControlImageUrl.HaveUrl())
             {
                 var imageName = Guid.NewGuid().ToString();
-                var filePath = Server.MapPath(GlobalConstants.ImagesPath + imageName);
+                var filePath = this.Server.MapPath(GlobalConstants.ImagesPath + imageName);
                 var extension = this.ControlImageUrl.DownloadRemoteImageFile(filePath);
                 imageName = imageName + '.' + extension;
                 newEmployee.EmployeePhoto = imageName;
@@ -84,9 +81,7 @@
             currentUser.Comments.Add(new Comment { Content = this.Comment.Text, Employee = newEmployee });
             uow.SaveChanges();
             Notifier.Success("Employee offer successfully created");
-            Response.Redirect("~/Employees/AddEmployee");
-
-
+            this.Response.Redirect("~/Employees/AddEmployee");
         }
     }
 }

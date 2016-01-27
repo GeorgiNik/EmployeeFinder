@@ -3,7 +3,7 @@
     using System;
     using System.Linq;
     using System.Web;
-    using System.Web.UI.WebControls;
+    using System.Web.UI;
 
     using EmployeeFinder.Common;
     using EmployeeFinder.Data;
@@ -12,18 +12,9 @@
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.Owin;
 
-    public partial class Manage : System.Web.UI.Page
+    public partial class Manage : Page
     {
-        protected string SuccessMessage
-        {
-            get;
-            private set;
-        }
-
-        private bool HasPassword(ApplicationUserManager manager)
-        {
-            return manager.HasPassword(User.Identity.GetUserId());
-        }
+        protected string SuccessMessage { get; private set; }
 
         public bool HasPhoneNumber { get; private set; }
 
@@ -33,15 +24,20 @@
 
         public int LoginsCount { get; set; }
 
+        private bool HasPassword(ApplicationUserManager manager)
+        {
+            return manager.HasPassword(this.User.Identity.GetUserId());
+        }
+
         protected void Page_Load()
         {
-            var manager = Context.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            var manager = this.Context.GetOwinContext().GetUserManager<ApplicationUserManager>();
 
             // Enable this after setting up two-factor authentientication
             // PhoneNumber.Text = manager.GetPhoneNumber(User.Identity.GetUserId()) ?? String.Empty;
-            this.TwoFactorEnabled = manager.GetTwoFactorEnabled(User.Identity.GetUserId());
+            this.TwoFactorEnabled = manager.GetTwoFactorEnabled(this.User.Identity.GetUserId());
 
-            this.LoginsCount = manager.GetLogins(User.Identity.GetUserId()).Count;
+            this.LoginsCount = manager.GetLogins(this.User.Identity.GetUserId()).Count;
 
             var authenticationManager = HttpContext.Current.GetOwinContext().Authentication;
 
@@ -61,19 +57,23 @@
                 }
 
                 // Render success message
-                var message = Request.QueryString["m"];
+                var message = this.Request.QueryString["m"];
                 if (message != null)
                 {
                     // Strip the query string from action
-                    Form.Action = this.ResolveUrl("~/Account/Manage");
+                    this.Form.Action = this.ResolveUrl("~/Account/Manage");
 
-                    this.SuccessMessage =
-                        message == "ChangePwdSuccess" ? "Your password has been changed."
-                        : message == "SetPwdSuccess" ? "Your password has been set."
-                        : message == "RemoveLoginSuccess" ? "The account was removed."
-                        : message == "AddPhoneNumberSuccess" ? "Phone number has been added"
-                        : message == "RemovePhoneNumberSuccess" ? "Phone number was removed"
-                        : string.Empty;
+                    this.SuccessMessage = message == "ChangePwdSuccess"
+                                              ? "Your password has been changed."
+                                              : message == "SetPwdSuccess"
+                                                    ? "Your password has been set."
+                                                    : message == "RemoveLoginSuccess"
+                                                          ? "The account was removed."
+                                                          : message == "AddPhoneNumberSuccess"
+                                                                ? "Phone number has been added"
+                                                                : message == "RemovePhoneNumberSuccess"
+                                                                      ? "Phone number was removed"
+                                                                      : string.Empty;
                     Notifier.Success(this.SuccessMessage);
                 }
             }
@@ -85,13 +85,13 @@
             var userId = this.User.Identity.GetUserId();
             var user =
                 uow.Users.All()
-                    .Select(u => new { u.Id, u.FirstName, u.LastName, u.AvatarUrl})
+                    .Select(u => new { u.Id, u.FirstName, u.LastName, u.AvatarUrl })
                     .First(u => u.Id == userId);
 
             this.Avatar.ImageUrl = GlobalConstants.ImagesPath + user.AvatarUrl;
-           
+
             this.Page.DataBind();
-            
+
             this.FirstName.Text = user.FirstName;
             this.LastName.Text = user.LastName;
         }
@@ -100,7 +100,7 @@
         {
             foreach (var error in result.Errors)
             {
-                ModelState.AddModelError("", error);
+                this.ModelState.AddModelError("", error);
             }
         }
 
@@ -122,11 +122,9 @@
                     user.LastName = this.LastName.Text;
                 }
 
-                
-
                 data.SaveChanges();
                 Notifier.Success("Account successfully updated");
-                Response.Redirect("~/Account/Manage.aspx", true);
+                this.Response.Redirect("~/Account/Manage.aspx", true);
             }
             catch (Exception err)
             {

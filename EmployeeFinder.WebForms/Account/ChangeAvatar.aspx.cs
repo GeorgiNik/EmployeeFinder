@@ -3,15 +3,10 @@
     using System;
     using System.IO;
     using System.Linq;
-    using System.Net;
     using System.Web.UI;
 
     using EmployeeFinder.Common;
     using EmployeeFinder.Data;
-    using EmployeeFinder.Models;
-    using EmployeeFinder.WebForms.Controls.Notifier;
-
-    using EmployeeFinder.Common;
     using EmployeeFinder.Models;
     using EmployeeFinder.WebForms.Controls.Notifier;
 
@@ -25,7 +20,7 @@
         {
             if (!this.IsPostBack)
             {
-                var userId = User.Identity.GetUserId();
+                var userId = this.User.Identity.GetUserId();
                 var userAvatar = this.data.Users.All().Where(u => u.Id == userId).Select(u => u.AvatarUrl).First();
                 this.Avatar.ImageUrl = "~/Imgs/" + userAvatar;
             }
@@ -43,15 +38,15 @@
                     }
                     else
                     {
-                        Stream fs = this.FileUploadAvatar.PostedFile.InputStream;
+                        var fs = this.FileUploadAvatar.PostedFile.InputStream;
                         var br = new BinaryReader(fs);
                         var bytesPhoto = br.ReadBytes((int)fs.Length);
-                        string base64String = Convert.ToBase64String(bytesPhoto, 0, bytesPhoto.Length);
+                        var base64String = Convert.ToBase64String(bytesPhoto, 0, bytesPhoto.Length);
                         this.Avatar.ImageUrl = "data:image/png;base64," + base64String;
-                        string fileName = this.FileUploadAvatar.PostedFile.FileName;
+                        var fileName = this.FileUploadAvatar.PostedFile.FileName;
                         var fileExtension = fileName.Substring(fileName.LastIndexOf('.'));
                         var newName = Guid.NewGuid() + fileExtension;
-                        this.FileUploadAvatar.SaveAs(Server.MapPath(GlobalConstants.ImagesPath + newName));
+                        this.FileUploadAvatar.SaveAs(this.Server.MapPath(GlobalConstants.ImagesPath + newName));
 
                         this.SaveAvatarToUser(newName);
                         Notifier.Success("Image updated successfully");
@@ -71,7 +66,7 @@
         protected void ButtonUploadControl_OnClick(object sender, EventArgs e)
         {
             var imageName = Guid.NewGuid().ToString();
-            var filePath = Server.MapPath(GlobalConstants.ImagesPath + imageName);
+            var filePath = this.Server.MapPath(GlobalConstants.ImagesPath + imageName);
             string extension;
 
             try

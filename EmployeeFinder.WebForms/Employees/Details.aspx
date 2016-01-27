@@ -22,11 +22,16 @@
     <asp:ListView ID="lvComments" runat="server">
         <ItemTemplate>
             <div runat="server" style="display: inline-block;">
-                <asp:Button runat="server" Text="Like" OnCommand="ButtonOnCommand" CommandArgument='<%#: Eval("Id")%>' CommandName="like" />
-                <asp:Label runat="server"><%#: Eval("Likes")%></asp:Label>
-                <asp:Button runat="server" Text="Dislike" OnCommand="ButtonOnCommand" CommandArgument='<%#: Eval("Id")%>' CommandName="dislike" />
-                <asp:Label runat="server"><%#: Eval("Dislikes")%></asp:Label>
-                <asp:Label runat="server" Text='<%#: Eval("Content") %>'></asp:Label>
+                <asp:Button runat="server" Text="Like" OnCommand="ButtonOnCommand" CommandArgument='<%#:
+                this.Eval("Id") %>' CommandName="like" />
+                <asp:Label runat="server"><%#:
+                this.Eval("Likes") %></asp:Label>
+                <asp:Button runat="server" Text="Dislike" OnCommand="ButtonOnCommand" CommandArgument='<%#:
+                this.Eval("Id") %>' CommandName="dislike" />
+                <asp:Label runat="server"><%#:
+                this.Eval("Dislikes") %></asp:Label>
+                <asp:Label runat="server" Text='<%#:
+                this.Eval("Content") %>'></asp:Label>
             </div>
         </ItemTemplate>
     </asp:ListView>

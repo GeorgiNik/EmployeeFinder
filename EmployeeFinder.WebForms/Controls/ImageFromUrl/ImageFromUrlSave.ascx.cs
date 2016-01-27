@@ -7,6 +7,8 @@
 
     public partial class ImageFromUrlSave : UserControl
     {
+        public decimal ContentLength { get; set; }
+
         public string DownloadRemoteImageFile(string fileName)
         {
             var uri = this.ImageUploadUrl.Text;
@@ -25,7 +27,7 @@
                 // if the remote file was found, download it
                 var extension = response.ContentType.Substring(response.ContentType.LastIndexOf('/') + 1);
                 fileName = fileName + '.' + extension;
-                using (Stream inputStream = response.GetResponseStream())
+                using (var inputStream = response.GetResponseStream())
                 using (Stream outputStream = File.OpenWrite(fileName))
                 {
                     var buffer = new byte[4096];
@@ -52,7 +54,5 @@
         protected void Page_Load(object sender, EventArgs e)
         {
         }
-
-        public decimal ContentLength { get; set; }
     }
 }

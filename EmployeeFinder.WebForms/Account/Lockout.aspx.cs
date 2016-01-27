@@ -1,17 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-
-namespace EmployeeFinder.WebForms.Account
+﻿namespace EmployeeFinder.WebForms.Account
 {
-    public partial class Lockout : System.Web.UI.Page
+    using System;
+    using System.Web.UI;
+
+    public partial class Lockout : Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
         }
     }
 }
