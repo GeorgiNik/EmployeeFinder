@@ -1,20 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-
-namespace EmployeeFinder.WebForms.Employees
+﻿namespace EmployeeFinder.WebForms.Employees
 {
+    using System;
+    using System.Linq;
+    using System.Web.UI;
+    using System.Web.UI.WebControls;
     using EmployeeFinder.Common;
     using EmployeeFinder.Data;
     using EmployeeFinder.Models;
     using EmployeeFinder.WebForms.Controls.Notifier;
 
-    using Microsoft.AspNet.Identity;
-
-    public partial class AddEmployee : System.Web.UI.Page
+    public partial class AddEmployee : Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -23,27 +18,23 @@ namespace EmployeeFinder.WebForms.Employees
                 Server.Transfer("~/Account/Login.aspx", true);
             }
 
-
-
-            if (!IsPostBack)
+            if (!this.IsPostBack)
             {
                 foreach (int value in Enum.GetValues(typeof(Position)))
                 {
                     this.Possition.Items.Add(new ListItem(Enum.GetName(typeof(Position), value), value.ToString()));
                 }
-                foreach (int value in Enum.GetValues(typeof(Rating)))
+
+                for (int i = 1; i <= 6; i++)
                 {
-                    this.Rating.Items.Add(new ListItem(Enum.GetName(typeof(Rating), value), value.ToString()));
+                    this.Rating.Items.Add(new ListItem(i.ToString()));
                 }
 
                 this.Rating.SelectedIndex = 0;
 
                 var db = new EmployeeFinderData();
 
-
-
-
-                Page.DataBind();
+                this.Page.DataBind();
             }
         }
 
@@ -54,10 +45,9 @@ namespace EmployeeFinder.WebForms.Employees
             var currentUser = uow.Users.All().FirstOrDefault(x => x.UserName == this.User.Identity.Name);
             var newEmployee = new Employee();
             newEmployee.FirstName = this.FirstName.Text;
-            //newEmployee.Comments.Add();
             newEmployee.LastName = this.LastName.Text;
             newEmployee.Position = (Position)Enum.Parse(typeof(Position), this.Possition.SelectedValue);
-            newEmployee.Rating = (Rating)Enum.Parse(typeof(Rating), this.Rating.SelectedValue);
+            newEmployee.Rating = this.Rating.SelectedIndex + 1;
 
 
             if (this.FileUploadImage.HasFile)
