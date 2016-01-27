@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace EmployeeFinder.Models
+﻿namespace EmployeeFinder.Models
 {
     using System.ComponentModel.DataAnnotations;
 
@@ -21,10 +15,8 @@ namespace EmployeeFinder.Models
         [MinLength(5)]
         public string Content { get; set; }
 
-
-
-        public string EmployeeId { get; set; }
-
         public virtual Employee Employee { get; set; }
+
+        public virtual User User { get; set; }
     }
 }

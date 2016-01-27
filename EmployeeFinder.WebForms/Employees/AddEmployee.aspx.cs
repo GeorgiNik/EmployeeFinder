@@ -36,6 +36,8 @@ namespace EmployeeFinder.WebForms.Employees
                     this.Rating.Items.Add(new ListItem(Enum.GetName(typeof(Rating), value), value.ToString()));
                 }
 
+                this.Rating.SelectedIndex = 0;
+
                 var db = new EmployeeFinderData();
 
 
@@ -47,52 +49,54 @@ namespace EmployeeFinder.WebForms.Employees
 
         protected void OnClick(object sender, EventArgs e)
         {
-            
-                var uow = new EmployeeFinderData();
-                var newEmployee = new Employee();
-                newEmployee.FirstName = this.FirstName.Text;
-                newEmployee.Comments.Add(new Comment() { Content = this.Comment.Text, });
-                newEmployee.LastName = this.LastName.Text;
-                newEmployee.Position = (Position)Enum.Parse(typeof(Position), this.Possition.SelectedValue);
-                newEmployee.Rating = (Rating)Enum.Parse(typeof(Rating), this.Rating.SelectedValue);
+            var uow = new EmployeeFinderData();
+
+            var currentUser = uow.Users.All().FirstOrDefault(x => x.UserName == this.User.Identity.Name);
+            var newEmployee = new Employee();
+            newEmployee.FirstName = this.FirstName.Text;
+            //newEmployee.Comments.Add();
+            newEmployee.LastName = this.LastName.Text;
+            newEmployee.Position = (Position)Enum.Parse(typeof(Position), this.Possition.SelectedValue);
+            newEmployee.Rating = (Rating)Enum.Parse(typeof(Rating), this.Rating.SelectedValue);
 
 
-                if (this.FileUploadImage.HasFile)
+            if (this.FileUploadImage.HasFile)
+            {
+                if (this.FileUploadImage.PostedFile.ContentLength > 1024000)
                 {
-                    if (this.FileUploadImage.PostedFile.ContentLength > 1024000)
-                    {
-                        Notifier.Error("File has to be less than 1MB");
-                        return;
-                    }
-                    else
-                    {
-                        string fileName = this.FileUploadImage.PostedFile.FileName;
-                        var fileExtension = fileName.Substring(fileName.LastIndexOf('.'));
-                        var newName = Guid.NewGuid() + fileExtension;
-                        this.FileUploadImage.SaveAs(Server.MapPath(GlobalConstants.ImagesPath + newName));
-
-                        newEmployee.EmployeePhoto = newName;
-                    }
-                }
-                else if (this.ControlImageUrl.HaveUrl())
-                {
-                    var imageName = Guid.NewGuid().ToString();
-                    var filePath = Server.MapPath(GlobalConstants.ImagesPath + imageName);
-                    var extension = this.ControlImageUrl.DownloadRemoteImageFile(filePath);
-                    imageName = imageName + '.' + extension;
-                    newEmployee.EmployeePhoto = imageName;
+                    Notifier.Error("File has to be less than 1MB");
+                    return;
                 }
                 else
                 {
-                    newEmployee.EmployeePhoto = GlobalConstants.DefautlBarterImg;
-                }
+                    string fileName = this.FileUploadImage.PostedFile.FileName;
+                    var fileExtension = fileName.Substring(fileName.LastIndexOf('.'));
+                    var newName = Guid.NewGuid() + fileExtension;
+                    this.FileUploadImage.SaveAs(Server.MapPath(GlobalConstants.ImagesPath + newName));
 
-                uow.Employees.Add(newEmployee);
-                uow.SaveChanges();
-                Notifier.Success("Employee offer successfully created");
-                Response.Redirect("~/Employees/AddEmployee");
-            
-            
+                    newEmployee.EmployeePhoto = newName;
+                }
+            }
+            else if (this.ControlImageUrl.HaveUrl())
+            {
+                var imageName = Guid.NewGuid().ToString();
+                var filePath = Server.MapPath(GlobalConstants.ImagesPath + imageName);
+                var extension = this.ControlImageUrl.DownloadRemoteImageFile(filePath);
+                imageName = imageName + '.' + extension;
+                newEmployee.EmployeePhoto = imageName;
+            }
+            else
+            {
+                newEmployee.EmployeePhoto = GlobalConstants.DefautlBarterImg;
+            }
+
+            uow.Employees.Add(newEmployee);
+            currentUser.Comments.Add(new Comment { Content = this.Comment.Text, Employee = newEmployee });
+            uow.SaveChanges();
+            Notifier.Success("Employee offer successfully created");
+            Response.Redirect("~/Employees/AddEmployee");
+
+
         }
     }
 }
