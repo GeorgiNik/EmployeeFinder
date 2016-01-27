@@ -11,6 +11,11 @@ namespace EmployeeFinder.Models
 
     public class Company
     {
+        private ICollection<Employee> employees; 
+        public Company()
+        {
+            this.employees=new HashSet<Employee>();
+        }
         public int Id { get; set; }
 
 
@@ -30,6 +35,20 @@ namespace EmployeeFinder.Models
         [MinLength(3)]
         [MaxLength(50)]
         public string Description { get; set; }
+
+        public virtual ICollection<Employee> Employees
+        {
+            get
+            {
+                return this.employees;
+            }
+
+            set
+            {
+                this.employees = value;
+            }
+        }
+
 
     }
 }

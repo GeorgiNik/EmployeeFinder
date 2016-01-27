@@ -17,10 +17,14 @@ namespace EmployeeFinder.Models
         public int Dislikes { get; set; }
 
         [Required]
+        [MaxLength(200)]
+        [MinLength(5)]
         public string Content { get; set; }
 
-        public string UserId { get; set; }
 
-        public virtual User User { get; set; }
+
+        public string EmployeeId { get; set; }
+
+        public virtual Employee Employee { get; set; }
     }
 }
