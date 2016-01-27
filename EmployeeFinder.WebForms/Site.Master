@@ -1,4 +1,5 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="EmployeeFinder.WebForms.SiteMaster" %>
+<%@ Register src="Controls/Notifier/Notifier.ascx" tagname="Notifier" tagprefix="uc1" %>
 
 <!DOCTYPE html>
 
@@ -38,42 +39,43 @@
             </Scripts>
         </asp:ScriptManager>
 
-        <div class="navbar navbar-inverse navbar-fixed-top">
+       <uc1:Notifier ID="Notifier1" runat="server" />
+        <div class="navbar navbar-inverse navbar-fixed-top collapsed">
             <div class="container">
-                <div class="navbar-header">
+                <div class="header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" runat="server" href="~/">EmployeeFinder</a>
-                </div>
-                <div class="navbar-collapse collapse">
-                     <asp:Menu ID="NavigationMenu" runat="server"  EnableViewState="false" 
+                        <a class="navbar-brand" runat="server" href="~/">EmployeeFinder</a>
+                    <div>
+                        <asp:Menu ID="NavigationMenu" runat="server"  EnableViewState="false" 
                           IncludeStyleBlock="false" Orientation="Horizontal"
                           CssClass="navbar-collapse collapse"
-                          StaticMenuStyle-CssClass= "nav navbar-nav"
+                          StaticMenuStyle-CssClass= "nav navbar-nav navbar-left fix"
                           StaticSelectedStyle-CssClass="active"
                           DynamicMenuStyle-CssClass="dropdown-menu"
                           DataSourceId="SiteMapDataSource"
                           StaticDisplayLevels="2">
                       </asp:Menu>
-                    <asp:LoginView runat="server" ViewStateMode="Disabled">
-                        <AnonymousTemplate>
-                            <ul class="nav navbar-nav navbar-right">
-                                <li><a runat="server" href="~/Account/Register">Register</a></li>
-                                <li><a runat="server" href="~/Account/Login">Log in</a></li>
-                            </ul>
-                        </AnonymousTemplate>
-                        <LoggedInTemplate>
-                            <ul class="nav navbar-nav navbar-right">
-                                <li><a runat="server" href="~/Account/Manage" title="Manage your account">Hello, <%: Context.User.Identity.GetUserName()  %> !</a></li>
-                                <li>
-                                    <asp:LoginStatus runat="server" LogoutAction="Redirect" LogoutText="Log off" LogoutPageUrl="~/" OnLoggingOut="Unnamed_LoggingOut" />
-                                </li>
-                            </ul>
-                        </LoggedInTemplate>
-                    </asp:LoginView>
+                        <asp:LoginView runat="server" ViewStateMode="Disabled">
+                            <AnonymousTemplate>
+                                <ul class="nav navbar-nav navbar-right fix">
+                                    <li><a runat="server" href="~/Account/Register">Register</a></li>
+                                    <li><a runat="server" href="~/Account/Login">Log in</a></li>
+                                </ul>
+                            </AnonymousTemplate>
+                            <LoggedInTemplate>
+                                <ul class="nav navbar-nav navbar-right fix">
+                                    <li><a runat="server" href="~/Account/Manage" title="Manage your account">Hello, <%: Context.User.Identity.GetUserName()  %> !</a></li>
+                                    <li>
+                                        <asp:LoginStatus runat="server" LogoutAction="Redirect" LogoutText="Log off" LogoutPageUrl="~/" OnLoggingOut="Unnamed_LoggingOut" />
+                                    </li>
+                                </ul>
+                            </LoggedInTemplate>
+                        </asp:LoginView>
+                    </div>
                 </div>
             </div>
         </div>
@@ -81,8 +83,8 @@
             <asp:ContentPlaceHolder ID="MainContent" runat="server">
             </asp:ContentPlaceHolder>
             <hr />
-            <footer>
-                <p>&copy; <%: DateTime.Now.Year %> - EmployeeFinder</p>
+            <footer class="">
+                <p>&copy; <%: DateTime.Now.Year %> - Team Programisti bez zadrujki</p>
             </footer>
         </div>
     </form>
