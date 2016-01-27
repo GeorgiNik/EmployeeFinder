@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace EmployeeFinder.Models
+﻿namespace EmployeeFinder.Models
 {
+    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
     public class Employee
     {
         private ICollection<Company> companies;
         private ICollection<Comment> comments;
+
         public Employee()
         {
             this.companies=new HashSet<Company>();
@@ -32,14 +28,12 @@ namespace EmployeeFinder.Models
         [MinLength(3)]
         [MaxLength(30)]
         public string LastName { get; set; }
-
-
+        
         public string EmployeePhoto { get; set; }
+        
+        public int Rating { get; set; }
 
-       
-        public Rating Rating { get; set; }
-
-
+        public int RatingsCount { get; set; }
 
         public virtual ICollection<Comment> Comments
         {
@@ -66,7 +60,5 @@ namespace EmployeeFinder.Models
                 this.companies = value;
             }
         }
-
-
     }
 }
