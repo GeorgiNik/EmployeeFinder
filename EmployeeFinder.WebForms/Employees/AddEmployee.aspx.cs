@@ -87,7 +87,7 @@ namespace EmployeeFinder.WebForms.Employees
             }
             else
             {
-                newEmployee.EmployeePhoto = GlobalConstants.DefautlBarterImg;
+                newEmployee.EmployeePhoto = GlobalConstants.DefaultUserAvatar;
             }
 
             uow.Employees.Add(newEmployee);
