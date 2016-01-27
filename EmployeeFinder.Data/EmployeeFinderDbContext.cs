@@ -11,8 +11,8 @@
     {
         public EmployeeFinderDbContext() : base("DefaultConnectionString")
         {
-            Database.SetInitializer(new MigrateDatabaseToLatestVersion<EmployeeFinderDbContext, Configuration>());
         }
+
         public static EmployeeFinderDbContext Create()
         {
             return new EmployeeFinderDbContext();
