@@ -12,6 +12,6 @@ namespace EmployeeFinder.Common
 
         public const string DefaultUserAvatar = "default-avatar.jpg";
 
-        public const string DefautlBarterImg = "default.jpg";
+        
     }
 }
