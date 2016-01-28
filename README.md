@@ -7,7 +7,7 @@
 
 [GitHub](https://github.com/GeorgiNik/EmployeeFinder)
 
-Our ASP.NET Web Forms application is a web site for free advertisements for exchange of services without the **mediation of money**.
+Our ASP.NET Web Forms application is a web site for finding employees and checking their previous manager comments and ratings about them.
 
 It has user registration and supports three roles: **user**, **admin** and **banned**.
 
