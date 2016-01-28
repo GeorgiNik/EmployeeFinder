@@ -30,9 +30,6 @@
 
                 </div>
             </div>
-
-
-
             <div class="form-group">
                 <asp:Label runat="server" AssociatedControlID="EmployeePosition" CssClass="col-md-2 control-label">Possition:</asp:Label>
                 <div class="col-md-10">

@@ -82,7 +82,7 @@
             currentUser.Comments.Add(new Comment { Content = this.Comment.Text, Employee = newEmployee });
             uow.SaveChanges();
             Notifier.Success("Employee offer successfully created");
-            //this.Response.Redirect("~/Employees/AddEmployee.aspx");
+            this.Response.Redirect("~/Default.aspx");
         }
 
        

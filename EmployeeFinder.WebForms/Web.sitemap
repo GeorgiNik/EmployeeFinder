@@ -4,7 +4,7 @@
   <siteMapNode title="Home" description="Home Page" url="~/Default.aspx">
     <siteMapNode title="Employees" description="Find, create and comment employees" url="~/Employees" roles="user,admin">
       <siteMapNode title="Add Employee" description="Add new employee" url="~/Employees/AddEmployee.aspx"/>
-      
+      <siteMapNode title="Search" description="Search" url="~/Employees/Search.aspx"/>
     </siteMapNode>
     <siteMapNode title="Contact" description="Contact Page" url="~/Contact.aspx" />
   </siteMapNode>
