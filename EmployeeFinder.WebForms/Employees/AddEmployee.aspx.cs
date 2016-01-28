@@ -49,6 +49,7 @@
             newEmployee.LastName = this.LastName.Text;
             newEmployee.Position = (Position)Enum.Parse(typeof(Position), this.Possition.SelectedValue);
             newEmployee.Rating = this.Rating.SelectedIndex + 1;
+            newEmployee.RatingsCount += 1;
 
             if (this.FileUploadImage.HasFile)
             {
@@ -81,7 +82,9 @@
             currentUser.Comments.Add(new Comment { Content = this.Comment.Text, Employee = newEmployee });
             uow.SaveChanges();
             Notifier.Success("Employee offer successfully created");
-            this.Response.Redirect("~/Employees/AddEmployee");
+            //this.Response.Redirect("~/Employees/AddEmployee.aspx");
         }
+
+       
     }
 }

@@ -20,32 +20,32 @@
                 this.Server.Transfer("~/Account/Login.aspx", true);
             }
 
-            if (this.IsPostBack)
+            if (!this.IsPostBack)
             {
-                return;
+                var idStr = this.Context.Request.QueryString["id"];
+                if (idStr == null)
+                {
+                    return;
+                }
+
+                for (var i = 1; i <= 6; i++)
+                {
+                    this.Rating.Items.Add(new ListItem(i.ToString()));
+                }
+
+                var id = int.Parse(idStr);
+                var employee = this.data.Employees.All().FirstOrDefault(x => x.Id == id);
+                this.Image1.ImageUrl = GlobalConstants.ImagesPath + employee.EmployeePhoto;
+                this.FirstName.Text = employee.FirstName;
+                this.LastName.Text = employee.LastName;
+                this.EmployeePosition.Text = Enum.GetName(typeof(Position), employee.Position);
+                this.EmployeeRating.Text = Math.Round((decimal)employee.Rating / employee.RatingsCount, 2).ToString();
+
+                this.lvComments.DataSource = employee.Comments;
+                this.lvComments.DataBind();
             }
 
-            var idStr = this.Context.Request.QueryString["id"];
-            if (idStr == null)
-            {
-                return;
-            }
-
-            for (var i = 1; i <= 6; i++)
-            {
-                this.Rating.Items.Add(new ListItem(i.ToString()));
-            }
-
-            var id = int.Parse(idStr);
-            var employee = this.data.Employees.All().FirstOrDefault(x => x.Id == id);
-            this.Image1.ImageUrl = GlobalConstants.ImagesPath + employee.EmployeePhoto;
-            this.lblFirstName.Text = employee.FirstName;
-            this.lblLastName.Text = employee.LastName;
-            this.lblPosition.Text = Enum.GetName(typeof(Position), employee.Position);
-            this.lblRating.Text = Math.Round((decimal)employee.Rating / employee.RatingsCount, 2).ToString();
-
-            this.lvComments.DataSource = employee.Comments;
-            this.lvComments.DataBind();
+           
         }
 
         protected void ButtonOnCommand(object sender, CommandEventArgs e)
@@ -77,7 +77,7 @@
             var employee = this.data.Employees.All().FirstOrDefault(x => x.Id == employeeId);
             employee.Rating += this.Rating.SelectedIndex + 1;
             employee.RatingsCount++;
-            this.lblRating.Text = Math.Round((decimal)employee.Rating / employee.RatingsCount, 2).ToString();
+            this.EmployeeRating.Text = Math.Round((decimal)employee.Rating / employee.RatingsCount, 2).ToString();
             this.data.SaveChanges();
         }
     }

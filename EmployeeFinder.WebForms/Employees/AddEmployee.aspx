@@ -25,7 +25,7 @@
                 <asp:RequiredFieldValidator runat="server" ControlToValidate="FirstName"
                     CssClass="text-danger" ErrorMessage="The name field is required." />
                 <asp:RegularExpressionValidator Display="Dynamic" runat="server" ControlToValidate="FirstName"
-                    ValidationExpression="^[\s\S]{5,30}$"
+                    ValidationExpression="^[\s\S]{3,30}$"
                     CssClass="text-danger" ErrorMessage="The name length must be between 3 and 30 symbols." />
             </div>
         </div>
@@ -36,7 +36,7 @@
                 <asp:RequiredFieldValidator runat="server" ControlToValidate="LastName"
                     CssClass="text-danger" ErrorMessage="The name field is required." />
                 <asp:RegularExpressionValidator Display="Dynamic" runat="server" ControlToValidate="LastName"
-                    ValidationExpression="^[\s\S]{5,30}$"
+                    ValidationExpression="^[\s\S]{3,30}$"
                     CssClass="text-danger" ErrorMessage="The name length must be between 3 and 30 symbols." />
             </div>
         </div>
@@ -76,7 +76,7 @@
         </div>
         <div class="form-group">
             <asp:Label runat="server" AssociatedControlID="Rating" CssClass="col-md-2 control-label">Rate:</asp:Label>
-            <asp:RadioButtonList ID="Rating" runat="server" >
+            <asp:RadioButtonList ID="Rating" runat="server"  >
                 
             </asp:RadioButtonList>
 

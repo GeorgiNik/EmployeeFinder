@@ -22,40 +22,40 @@ namespace EmployeeFinder.WebForms.Employees {
         protected global::System.Web.UI.WebControls.Image Image1;
         
         /// <summary>
-        /// lblFirstName control.
+        /// FirstName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblFirstName;
+        protected global::System.Web.UI.WebControls.TextBox FirstName;
         
         /// <summary>
-        /// lblLastName control.
+        /// LastName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblLastName;
+        protected global::System.Web.UI.WebControls.TextBox LastName;
         
         /// <summary>
-        /// lblPosition control.
+        /// EmployeePosition control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblPosition;
+        protected global::System.Web.UI.WebControls.TextBox EmployeePosition;
         
         /// <summary>
-        /// lblRating control.
+        /// EmployeeRating control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblRating;
+        protected global::System.Web.UI.WebControls.TextBox EmployeeRating;
         
         /// <summary>
         /// Rating control.
